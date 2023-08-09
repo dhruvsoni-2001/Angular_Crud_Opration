@@ -1,1 +1,62 @@
-<p>projects works!</p>
+<!-- {{projects | json}} -->
+<p-toast></p-toast>
+<div class="mt-5"></div>
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="onAddProject()"></button>
+      <!-- <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteUser()"
+        [disabled]="!selectedUser"></button> -->
+    </ng-template>
+  </p-toolbar>
+
+  <p-table #dt [value]="projects" [rows]="5" [paginator]="true"
+    [globalFilterFields]="['Name', 'Description', 'StartDate', 'EndEnd']" [rowHover]="true" dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"  [rowsPerPageOptions]="[5,10, 20, 30]">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage Projects</h5>
+        <!-- <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+        </span> -->
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 2rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="email">Description <p-sortIcon field="description"></p-sortIcon></th>
+        <th pSortableColumn="role">StartDate <p-sortIcon field="startDate"></p-sortIcon></th>
+        <th pSortableColumn="taskId">EndEnd <p-sortIcon field="endDate"></p-sortIcon></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-project>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="project"></p-tableCheckbox>
+        </td>
+        <td>{{project.name}}</td>
+        <td>{{project.description}}</td>
+        <td>{{project.startDate | date: 'dd/MM/yyyy'}}</td>
+        <td>{{project.endDate | date: 'dd/MM/yyyy'}}</td>
+
+        <td >
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+            (click)="onEditProject()"></button> &nbsp;
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+            (click)="onDeleteProject(project.id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{projects ? projects.length : 0}} projects.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+<div class="mb-3"></div>

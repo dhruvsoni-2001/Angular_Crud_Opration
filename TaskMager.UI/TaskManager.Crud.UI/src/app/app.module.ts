@@ -37,6 +37,7 @@ import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AddProjectsComponent } from './projects/add-projects/add-projects.component';
 import { EditProjectsComponent } from './projects/edit-projects/edit-projects.component';
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { EditProjectsComponent } from './projects/edit-projects/edit-projects.co
     ConfirmDialogModule,
     InputTextareaModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CardModule
 
   ],
   providers: [MessageService, ConfirmationService],

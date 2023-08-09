@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './users/users/users.component';
 import { TasksComponent } from './tasks/tasks/tasks.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
+import { AddProjectsComponent } from './projects/add-projects/add-projects.component';
+import { EditProjectsComponent } from './projects/edit-projects/edit-projects.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'users', pathMatch: 'full' },
@@ -12,6 +14,10 @@ const routes: Routes = [
   { path: 'tasks', component: TasksComponent },
 
   { path: 'projects', component: ProjectsComponent },
+
+  { path: 'projects/add', component: AddProjectsComponent},
+
+  {path: 'projects/edit', component: EditProjectsComponent}
 ];
 
 @NgModule({

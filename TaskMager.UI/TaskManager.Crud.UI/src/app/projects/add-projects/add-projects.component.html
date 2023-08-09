@@ -1,1 +1,36 @@
-<p>add-projects works!</p>
+<div class="container mt-3 " >
+    <div class="card custom-card">
+        <div class="card-body">
+        <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="w-75 mx-auto">
+          <div class="input-group mb-3">
+            <span class="input-group-text"><i class="pi pi-plus-circle mx-1"></i></span>
+            <input type="text" pInputText formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': projectForm.get('name')?.invalid && projectForm.get('name')?.touched }" />
+            <div class="invalid-feedback">
+                Name is required.
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><i class="pi pi-info mx-1"></i></span>
+            <input type="text" pInputText formControlName="description" class="form-control" placeholder="Description" [ngClass]="{ 'is-invalid': projectForm.get('description')?.invalid && projectForm.get('description')?.touched }"  />
+            <div class="invalid-feedback">
+                Description is required.
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><i class="pi pi-calendar mx-1"></i></span>
+            <p-calendar formControlName="startDate" placeholder="Start Date" class="form-control"></p-calendar>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><i class="pi pi-calendar mx-1"></i></span>
+            <p-calendar formControlName="endDate" placeholder="End Date" class="form-control"></p-calendar>
+          </div>
+          <div class="d-flex justify-content-between">
+            <button type="button" pButton pRipple label="Back" icon="pi pi-arrow-left" class="p-button-warning"
+              (click)="onBack()"></button>
+            <button type="submit" pButton pRipple label="Save" icon="pi pi-check" class="p-button-success"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
