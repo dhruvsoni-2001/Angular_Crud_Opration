@@ -1,0 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300&display=swap");
+.h1 {
+    font-family: 'Lato', sans-serif;
+}
+nav {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

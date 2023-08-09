@@ -1,0 +1,97 @@
+{{users| json}}
+<p-toast></p-toast>
+
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="showDialog()"></button>
+      <!-- <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteUser()"
+        [disabled]="!selectedUser"></button> -->
+    </ng-template>
+  </p-toolbar>
+
+  <p-table #dt [value]="users" [rows]="10" [paginator]="true"
+    [globalFilterFields]="['name', 'email', 'role', 'taskId']" [(selection)]="selectedUser" [rowHover]="true" dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage Users</h5>
+        <!-- <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+        </span> -->
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+        <th pSortableColumn="role">Role <p-sortIcon field="role"></p-sortIcon></th>
+        <th pSortableColumn="taskId">Task ID <p-sortIcon field="taskId"></p-sortIcon></th>
+        <th pSortableColumn="taskId">Project ID <p-sortIcon field="taskId"></p-sortIcon></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="user"></p-tableCheckbox>
+        </td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.role}}</td>
+        <td>{{user.tasks.title}}</td>
+        <td>{{user.tasks.project.name}}</td>
+
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+            (click)="editUser(user)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+            (click)="deleteUser(user)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{users ? users.length : 0}} users.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog [(visible)]="userDialogVisible" [style]="{width: '450px', height:'500px'}" header="User Details" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Name</label>
+      <input type="text" pInputText id="name" [(ngModel)]="newUser.name" required autofocus />
+      <small class="p-invalid" *ngIf="userDialogSubmitted && !newUser.name">Name is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="email">Email</label>
+      <input type="email" pInputText id="email" [(ngModel)]="newUser.email" required />
+      <small class="p-invalid" *ngIf="userDialogSubmitted && !newUser.email">Email is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="role">Role</label>
+      <input type="text" pInputText id="role" [(ngModel)]="newUser.role" required />
+      <small class="p-invalid" *ngIf="userDialogSubmitted && !newUser.role">Role is required.</small>
+    </div>
+    <div class="p-field">
+        <label for="role">Tasks</label>
+        <input type="text" pInputText id="role" [(ngModel)]="newUser.taskId" required />
+        <small class="p-invalid" *ngIf="userDialogSubmitted && !newUser.taskId">Role is required.</small>
+      </div>  
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="onCancelUser()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="onSaveUser(newUser)"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: 'auto'}"></p-confirmDialog>
+ 

@@ -65,5 +65,16 @@ namespace TaskManager.Controllers
 
             return Ok(mapper.Map<ProjectAddRequestDto>(projectDomain));
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+            var projectDomain = await projectRepository.GetByIdAsync(id);
+            if (projectDomain == null)
+            {
+                return NotFound();
+            }
+            return Ok(mapper.Map<ProjectResponseDto>(projectDomain));
+        }
     }
 }

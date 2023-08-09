@@ -1,0 +1,8 @@
+footer{
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    height: 40px; /* Set the desired height for the footer */
+    background-color: #f0f0f0; /* Set the background color for the footer */
+    box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2), 0 -6px 20px 0 rgba(0, 0, 0, 0.19); /* Add the specified box shadow */
+}

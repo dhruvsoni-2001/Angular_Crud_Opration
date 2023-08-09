@@ -57,5 +57,10 @@ namespace TaskManager.Repository
             await dbContext.SaveChangesAsync();
             return existingTasks;
         }
+
+        public async Task<Tasks?> GetByIdAsync(int id)
+        {
+            return await dbContext.tasks.Include(z => z.Project).FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }
