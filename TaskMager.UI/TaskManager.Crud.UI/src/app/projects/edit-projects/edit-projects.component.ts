@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../services/projects.service';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from '../Models/project.model';
 
 @Component({
@@ -12,18 +11,22 @@ import { Project } from '../Models/project.model';
 })
 export class EditProjectsComponent implements OnInit {
   projectForm: FormGroup;
-  projects: Project ={
-    id:0,
-    name:'',
-    description:'',
-    startDate: new Date,
-    endDate: new Date,
-  }
-  
+  defaultProject: Project = {
+    id: 0,
+    name: '',
+    description: '',
+    startDate: new Date(),
+    endDate: new Date(),
+  };
+
+  project: Project = this.defaultProject;
+  // formattedStartDate: string | undefined;
+  // formattedEndDate: string | undefined;
+
   constructor(
     private projectService: ProjectService,
-    private http: HttpClient,
     private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder
   ) {
     this.projectForm = this.fb.group({
@@ -34,22 +37,70 @@ export class EditProjectsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    return this.route.paramMap.subscribe({
+      next: (params) => {
+        const id = params.get('id');
+        console.log(params);
 
-  onSubmit() {
-    if (this.projectForm.valid) {
-      const formData = this.projectForm.value;
-      this.projectService.createProjects(formData).subscribe(
-        (response: any) => {
-          this.router.navigate(['projects']);
-        },
-        (error) => {
-          console.error('Error creating product:', error);
+        if (id) {
+          this.projectService.getProjectById(+id).subscribe({
+            next: (response) => {
+              this.project = response;
+              console.log(response);
+              if (this.project.id <= 0) {
+                console.log('category id not found');
+              }else {
+                this.project.startDate = new Date(this.project.startDate);
+                this.project.endDate = new Date(this.project.endDate);
+              }
+            },
+          });
         }
-      );
-    }
+      },
+    });
   }
+
+  // ngOnInit() {
+  //   return this.route.paramMap.subscribe({
+  //     next: (params) => {
+  //       const id = params.get('id');
+  //       console.log(params);
+  
+  //       if (id) {
+  //         this.projectService.getProjectById(+id).subscribe({
+  //           next: (response) => {
+  //             this.project = response;
+  //             console.log(response);
+  //             if (this.project.id <= 0) {
+  //               console.log('project id not found');
+  //             }
+  
+  //             // Convert string dates to Date objects (if they are strings)
+  //             this.project.startDate = new Date(this.project.startDate);
+  //             this.project.endDate = new Date(this.project.endDate);
+  //           },
+  //         });
+  //       }
+  //     },
+  //   });
+  // }
+
+  onUpdate() {
+    this.projectService
+    .updateProject(this.project.id, this.project)
+    .subscribe((response) => console.log(response));
+    this.router.navigate(['projects']);
+  }
+
   onBack() {
     this.router.navigate(['projects']);
+  }
+
+  private formatDate(date: Date): string {
+    const year = date.getUTCFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
   }
 }

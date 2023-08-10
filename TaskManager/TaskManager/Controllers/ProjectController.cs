@@ -41,17 +41,18 @@ namespace TaskManager.Controllers
             return Ok(projectDomain);
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody]  ProjectUpdateRequestDto projectUpdateRequestDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ProjectUpdateRequestDto projectUpdateRequestDto)
         {
             var projectDomainModel = mapper.Map<Project>(projectUpdateRequestDto);
 
             projectDomainModel = await projectRepository.UpdateAsysnc(projectDomainModel, id);
+            var projectDto = mapper.Map<ProjectResponseDto>(projectDomainModel);
             if (projectDomainModel == null)
             {
                 return NotFound();
             }
-            return Ok(projectDomainModel);
+            return Ok(projectDto);
         }
 
         [HttpDelete("{id:int}")]

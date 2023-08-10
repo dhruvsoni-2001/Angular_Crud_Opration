@@ -45,9 +45,9 @@
         <td>{{project.endDate | date: 'dd/MM/yyyy'}}</td>
 
         <td >
-          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-            (click)="onEditProject()"></button> &nbsp;
-          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+          <a [routerLink]="['/projects/edit/', project.id]"><button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2"
+            ></button></a> &nbsp;
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
             (click)="onDeleteProject(project.id)"></button>
         </td>
       </tr>

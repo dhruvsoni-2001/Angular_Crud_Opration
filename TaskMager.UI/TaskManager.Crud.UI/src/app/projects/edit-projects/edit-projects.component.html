@@ -1,36 +1,64 @@
-<div class="container mt-3 " >
+<div class="container mt-3">
     <div class="card custom-card">
-        <div class="card-body">
-        <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="w-75 mx-auto">
-          <div class="input-group mb-3">
-            <span class="input-group-text"><i class="pi pi-plus-circle mx-1"></i></span>
-            <input type="text" pInputText formControlName="name" class="form-control" placeholder="Name" [ngClass]="{ 'is-invalid': projectForm.get('name')?.invalid && projectForm.get('name')?.touched }" />
-            <div class="invalid-feedback">
-                Name is required.
+      <div class="card-body">
+        <form #projectForm="ngForm" (ngSubmit)="onUpdate()" class="w-75 mx-auto">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" id="name" name="name" [(ngModel)]="project.name" #name="ngModel" class="form-control" placeholder="Name" required />
+            <div *ngIf="name.invalid && name.touched" class="invalid-feedback">
+              Name is required.
             </div>
           </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text"><i class="pi pi-info mx-1"></i></span>
-            <input type="text" pInputText formControlName="description" class="form-control" placeholder="Description" [ngClass]="{ 'is-invalid': projectForm.get('description')?.invalid && projectForm.get('description')?.touched }"  />
-            <div class="invalid-feedback">
-                Description is required.
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" id="description" name="description" [(ngModel)]="project.description" #description="ngModel" class="form-control" placeholder="Description" />
+          </div>
+          <div class="mb-3">
+            <label for="startDate" class="form-label">Start Date</label>
+            <input type="date" id="startDate" name="startDate" [(ngModel)]="project.startDate" #startDate="ngModel" class="form-control" required />
+            <div *ngIf="startDate.invalid && startDate.touched" class="invalid-feedback">
+              Please provide a valid Start Date.
             </div>
           </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text"><i class="pi pi-calendar mx-1"></i></span>
-            <p-calendar formControlName="startDate" placeholder="Start Date" class="form-control"></p-calendar>
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text"><i class="pi pi-calendar mx-1"></i></span>
-            <p-calendar formControlName="endDate" placeholder="End Date" class="form-control"></p-calendar>
+          <div class="mb-3">
+            <label for="endDate" class="form-label">End Date</label>
+            <input type="date" id="endDate" name="endDate" [(ngModel)]="project.endDate"  #endDate="ngModel" class="form-control" required />
+            <div *ngIf="endDate.invalid && endDate.touched" class="invalid-feedback">
+              Please provide a valid End Date.
+            </div>
+            <div>
+              <!-- <p>Formatted Start Date: {{ project.startDate | date:'dd MMM yyyy' }}</p>
+              <p>Formatted End Date: {{ project.endDate | date:'dd MMM yyyy' }}</p> -->
+            </div>
           </div>
           <div class="d-flex justify-content-between">
-            <button type="button" pButton pRipple label="Back" icon="pi pi-arrow-left" class="p-button-warning"
-              (click)="onBack()"></button>
-            <button type="submit" pButton pRipple label="Save" icon="pi pi-check" class="p-button-success"></button>
+            <button type="button" pButton pRipple class="btn btn-warning" (click)="onBack()">
+              <i class="pi pi-arrow-left"></i> Back
+            </button>
+            <button type="submit" pButton pRipple class="btn btn-success" [disabled]="!projectForm.form.valid">
+              <i class="pi pi-check"></i> Save
+            </button>
           </div>
         </form>
       </div>
     </div>
   </div>
   
+
+
+  <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker3.min.css">
+<script text="javascript/script">
+$( document ).ready(function() {
+    $("#from-datepicker").datepicker({ 
+        format: 'yyyy-mm-dd'
+    });
+    $("#from-datepicker").on("change", function () {
+        var fromdate = $(this).val();
+        alert(fromdate);
+    });
+}); 
+</script>

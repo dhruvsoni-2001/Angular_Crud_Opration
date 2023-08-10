@@ -19,6 +19,7 @@ namespace TaskManager.Data
             CreateMap<TasksAddResponseDto, Tasks>().ReverseMap();
             CreateMap<Project, ProjectResponseDto>().ReverseMap();
             CreateMap<ProjectAddRequestDto, Project>().ReverseMap();
+            CreateMap<ProjectUpdateRequestDto, Project>().ReverseMap();
         }
     }
 }

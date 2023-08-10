@@ -27,9 +27,7 @@ export class ProjectsComponent {
       this.router.navigate(['add'], { relativeTo: this.route });
     }
 
-    onEditProject(){
-      this.router.navigate(['edit'], { relativeTo: this.route });
-    }
+    
 
     onDeleteProject(id: number) {
       this.projectService.deleteProject(id).subscribe(

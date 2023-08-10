@@ -38,6 +38,10 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AddProjectsComponent } from './projects/add-projects/add-projects.component';
 import { EditProjectsComponent } from './projects/edit-projects/edit-projects.component';
 import { CardModule } from 'primeng/card';
+import { DatePipe } from '@angular/common';
+import { AddTasksComponent } from './tasks/add-tasks/add-tasks.component';
+import { EditTasksComponent } from './tasks/edit-tasks/edit-tasks.component';
+
 
 
 @NgModule({
@@ -49,7 +53,9 @@ import { CardModule } from 'primeng/card';
     TasksComponent,
     ProjectsComponent,
     AddProjectsComponent,
-    EditProjectsComponent
+    EditProjectsComponent,
+    AddTasksComponent,
+    EditTasksComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +83,8 @@ import { CardModule } from 'primeng/card';
     InputTextareaModule,
     FormsModule,
     ReactiveFormsModule,
-    CardModule
+    CardModule,
+    DatePipe
 
   ],
   providers: [MessageService, ConfirmationService],
