@@ -7,3 +7,30 @@
   .invalid-feedback {
     color: red;
   }
+
+
+  button {
+    margin: 20px 20px 0px 0px;
+  }
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: 0.3s;
+    padding: 30px 50px;
+    width: 45%;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  input.ng-invalid.ng-touched,
+  textarea.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+  
+  .help-block {
+    font-size: 14px;
+    color: red;
+  }
+  

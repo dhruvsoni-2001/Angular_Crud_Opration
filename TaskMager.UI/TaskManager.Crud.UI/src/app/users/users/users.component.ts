@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { UserService } from './users.service';
-import { User } from './user.model';
+
+import { User } from '../Models/user.model';
+import { UserService } from '../service/users.service';
+
 
 @Component({
   selector: 'app-users-list',
@@ -12,110 +14,55 @@ import { User } from './user.model';
 })
 export class UsersComponent implements OnInit {
   users: User[] = [];
-  userDialogVisible: boolean = false;
-  userDialogSubmitted: boolean = false;
-  selectedUser!: User | null;
-  newUser: User = {
-    id: 0,
-    name: '',
-    email: '',
-    role: '',
-    taskId: 0,
-  };
-  
-
-  taskIds: number[] = []; // Array to hold the unique task IDs
-  taskOptions: any[] = [];
 
   constructor(
-    private userService: UserService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService,
+    public userService: UserService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.loadUsers();
+    this.userService
+      .getUsers()
+      .subscribe((response) => (this.users = response));
   }
 
-  loadUsers() {
-    this.userService.getAll().subscribe((response) => {
-      this.users = response;
-
-      // Extract unique task IDs from the users array and load them into the taskIds array
-      this.taskIds = [...new Set(this.users.map((user) => user.taskId))];
-      
-    });
+  onAddProject() {
+    this.router.navigate(['add'], { relativeTo: this.route });
   }
 
-
-  showDialog() {
-    this.newUser = {
-      id: 0,
-      name: '',
-      email: '',
-      role: '',
-      taskId: 0,
-    };
-    this.userDialogVisible = true;
-    this.userDialogSubmitted = false;
-  }
-
-  editUser(user: User) {
-    this.selectedUser = { ...user };
-    this.newUser = { ...user }; // Populate the newUser object with the selected user's data
-    this.userDialogVisible = true;
-    this.userDialogSubmitted = false;
-  }
-
-  deleteUser(user: User) {
-    this.userService.delete(user.id).subscribe(
+  onDeleteProject(id: number) {
+    this.userService.deleteUser(id).subscribe(
       () => {
-        console.log('User deleted successfully.');
-        // Remove the deleted user from the users array
-        this.users = this.users.filter((u) => u.id !== user.id);
+        console.log('Project deleted successfully.');
+
+        // Remove the deleted project from the displayed list
+        this.users = this.users.filter((user) => user.id !== id);
       },
       (error) => {
-        console.error('Error deleting user:', error);
+        console.error('Error deleting project:', error);
+        // Handle the error, show a message, etc.
       }
     );
   }
 
-  hideUserDialog() {
-    this.userDialogVisible = false;
-  }
+  onUpdateTaskStatus(task: User) {
+    const updatedTask: User = {
+      ...task // Clone the task object
+    };
 
-  onSaveUser(user: User) {
-    if (user.id === 0) {
-      // Add new user
-      this.userService.add(user).subscribe(
-        (response) => {
-          console.log('User added successfully:', response);
-          this.loadUsers(); // Reload users after adding to refresh taskIds
+    // Update the task status
+    this.userService.updateUser(task.id, updatedTask)
+      .subscribe(
+        response => {
+          console.log('Task status updated successfully.', response);
+          // Handle success, show a message, etc.
         },
-        (error) => {
-          console.error('Error adding user:', error);
+        error => {
+          console.error('Error updating task status:', error);
+          // Handle error, show a message, etc.
         }
       );
-    } else {
-      // Update existing user
-      this.userService.update(user).subscribe(
-        (response) => {
-          console.log('User updated successfully:', response);
-          this.loadUsers(); // Reload users after updating to refresh taskIds
-        },
-        (error) => {
-          console.error('Error updating user:', error);
-        }
-      );
-    }
-
-    this.hideUserDialog();
-  }
-
-  onCancelUser() {
-    this.hideUserDialog();
-    this.loadUsers(); //
   }
 }
+

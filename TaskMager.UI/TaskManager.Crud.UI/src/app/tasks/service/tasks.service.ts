@@ -6,26 +6,30 @@ import { Tasks } from "../models/tasks.model";
     providedIn: 'root',
 })
 export class TasksService {
-    baseUrl = 'https://localhost:7177/api/Tasks/';
+    baseUrl = 'https://localhost:7177/api/Task/';
     constructor(private http: HttpClient) {}
   
-    getProjects() {
+    getTasks() {
       return this.http.get<Tasks[]>(this.baseUrl);
     }
   
-    createProjects(tasks: Tasks) {
+    createTasks(tasks: Tasks) {
       return this.http.post<Tasks>(this.baseUrl, tasks);
     }
   
-    getProjectById(id: number) {
+    getTaskById(id: number) {
       return this.http.get<Tasks>(this.baseUrl + id);
     }
   
-    updateProject(id: number, tasks: Tasks) {
+    updateTask(id: number, tasks: Tasks) {
       return this.http.put<Tasks>(this.baseUrl + id, tasks);
     }
   
-    deleteProject(id: number) {
+    deleteTask(id: number) {
       return this.http.delete<Tasks>(this.baseUrl + id);
+    }
+
+    updateTaskStatus(id : number, tasks: Tasks){
+      return this.http.put<Tasks>(this.baseUrl + `${id}/status`, tasks);
     }
 }

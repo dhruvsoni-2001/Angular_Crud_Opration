@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import {NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
-import { UsersComponent } from './users/users/users.component';
+
 import { TasksComponent } from './tasks/tasks/tasks.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
 
@@ -41,6 +41,9 @@ import { CardModule } from 'primeng/card';
 import { DatePipe } from '@angular/common';
 import { AddTasksComponent } from './tasks/add-tasks/add-tasks.component';
 import { EditTasksComponent } from './tasks/edit-tasks/edit-tasks.component';
+import { AddUsersComponent } from './users/add-users/add-users.component';
+import { EditUsersComponent } from './users/edit-users/edit-users.component';
+import { UsersComponent } from './users/users/users.component';
 
 
 
@@ -49,17 +52,20 @@ import { EditTasksComponent } from './tasks/edit-tasks/edit-tasks.component';
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    UsersComponent,
     TasksComponent,
     ProjectsComponent,
     AddProjectsComponent,
     EditProjectsComponent,
     AddTasksComponent,
     EditTasksComponent,
+    AddUsersComponent,
+    EditUsersComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     NgbCollapseModule,
     BrowserAnimationsModule,
     TableModule,
@@ -81,7 +87,6 @@ import { EditTasksComponent } from './tasks/edit-tasks/edit-tasks.component';
     InputNumberModule,
     ConfirmDialogModule,
     InputTextareaModule,
-    FormsModule,
     ReactiveFormsModule,
     CardModule,
     DatePipe

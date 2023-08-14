@@ -1,1 +1,55 @@
-<p>edit-tasks works!</p>
+<div class="outer my-3">
+    <div class="container">
+        <div class="card">
+            <form #taskForm="ngForm" (ngSubmit)="onUpdate()">
+                <div class="form-group mb-3">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" [(ngModel)]="tasks.title" required
+                        #title="ngModel" minlength="1" maxlength="50" />
+                </div>
+                <div>
+                    <span class="help-block" *ngIf="title.invalid && title.touched">Title field is invalid!</span>
+                </div>
+                <div class="form-group mb-3" >
+                    <label>Description</label>
+                    <textarea class="form-control" name="description" [(ngModel)]="tasks.description" required
+                        #description="ngModel" maxlength="200"></textarea>
+                </div>
+                <div>
+                    <span class="help-block" *ngIf="description.invalid && description.touched">Description field is
+                        invalid!</span>
+                </div>
+                <div class="input-group mt-3 ">
+                    <div class="input-group mb-3">
+                        <label class="switch" for="statusCheckbox">
+                            <input type="checkbox" id="statusCheckbox" [(ngModel)]="tasks.status" name="status"
+                                [ngModelOptions]="{ standalone: true }" />
+                            <div class="slider round"></div>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <p-calendar [(ngModel)]="tasks.dueDate" name="dueDate" [showIcon]="true" class="form-control" dateFormat="yy-mm-dd"></p-calendar>
+                </div>                
+                <div class="form-group">
+                    <label>Project</label>
+                    <select class="form-control" name="projectId" [(ngModel)]="tasks.projectId" required
+                        #projectId="ngModel">
+                        <option *ngFor="let project of projects" [value]="project.id">
+                            {{ project.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="button" pButton pRipple class="btn btn-warning" (click)="onBack()">
+                        <i class="pi pi-arrow-left">&nbsp;</i> Back
+                    </button>
+                    <button type="submit" pButton pRipple class="btn btn-success" [disabled]="!taskForm.form.valid">
+                        <i class="pi pi-check">&nbsp;</i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

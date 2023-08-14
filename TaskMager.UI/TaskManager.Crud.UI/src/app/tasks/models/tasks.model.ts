@@ -1,8 +1,16 @@
 export interface Tasks {
-    Id: number;
-    Title: string;
-    Description: string;
-    Status: string;
-    DueDate: Date;
-    ProjectId: number;
+    id: number;
+    title: string;
+    description: string;
+    status: string;
+    dueDate: Date;
+    projectId: number;
+    project?: 
+    { 
+        id: number; 
+        name: string;
+        description: string;
+        startDate: Date;
+        endDate: Date;
+    };
 }

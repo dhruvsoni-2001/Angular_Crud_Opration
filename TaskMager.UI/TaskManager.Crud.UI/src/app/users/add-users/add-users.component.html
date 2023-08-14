@@ -1,0 +1,71 @@
+<div class="container mt-3">
+    <div class="card custom-card">
+        <div class="card-body">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="w-75 mx-auto">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="pi pi-plus-circle mx-1"></i></span>
+                    <input type="text" pInputText formControlName="name" class="form-control" placeholder="Name"
+                        [ngClass]="{ 'is-invalid': userForm.get('name')?.invalid && userForm.get('name')?.touched }" />
+                    <div class="invalid-feedback">
+                        Name is required.
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="pi pi-info mx-1"></i></span>
+                    <input type="text" pInputText formControlName="email" class="form-control"
+                        placeholder="Email"
+                        [ngClass]="{ 'is-invalid': userForm.get('email')?.invalid && userForm.get('email')?.touched }" />
+                    <div class="invalid-feedback">
+                        Email is required.
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="pi pi-info mx-1"></i></span>
+                    <input type="text" pInputText formControlName="role" class="form-control"
+                        placeholder="Role"
+                        [ngClass]="{ 'is-invalid': userForm.get('role')?.invalid && userForm.get('role')?.touched }" />
+                    <div class="invalid-feedback">
+                        Role is required.
+                    </div>
+                </div>
+                <!-- <div class="input-group mt-3">
+                    <div class="input-group mb-3">
+                        <label class="switch" for="statusCheckbox">
+                            <input type="checkbox" id="statusCheckbox" formControlName="status" />
+                            <div class="slider round"></div>
+                        </label>
+                    </div>
+                </div> -->
+                <!-- <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="pi pi-calendar mx-1"></i></span>
+                    <p-calendar formControlName="dueDate" placeholder="Due Date" class="form-control"></p-calendar>
+                </div> -->
+                <div class="input-group mb-3 custom-dropdown">
+                    <span class="input-group-text"><i class="pi pi-plus-circle mx-1"></i></span>
+                    <select pInputSelect formControlName="tasksId" class="form-control">
+                        <option *ngFor="let task of tasks" [value]="task.id">
+                            {{ task.title }}
+                        </option>
+                    </select>
+                    <i class="pi pi-chevron-down"></i>
+                </div>
+                <!-- <div class="input-group mb-3 custom-dropdown">
+                    <span class="input-group-text"><i class="pi pi-plus-circle mx-1"></i></span>
+                    <select pInputSelect formControlName="projectId" class="form-control">
+                        <option *ngFor="let project of projects" [value]="project.id">
+                            {{ project.name }}
+                        </option>
+                    </select>
+                    <i class="pi pi-chevron-down"></i>
+                </div> -->
+
+                <div class="d-flex justify-content-between">
+                    <button type="button" pButton pRipple label="Back" icon="pi pi-arrow-left" class="p-button-warning"
+                        (click)="onBack()"></button>
+                    <button type="submit" pButton pRipple label="Save" icon="pi pi-check" class="p-button-success"
+                        [disabled]="!userForm.valid"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

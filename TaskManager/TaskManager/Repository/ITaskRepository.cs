@@ -10,5 +10,6 @@ namespace TaskManager.Repository
         Task<List<Tasks>> GetAllAsync();
         Task<Tasks?> GetByIdAsync(int id);
         Task<Tasks?> UpdateAsysnc(Tasks tasksDomainModel, int id);
+        Task<Tasks> UpdateStatusAsysnc(Tasks tasksDomain, int id);
     }
 }

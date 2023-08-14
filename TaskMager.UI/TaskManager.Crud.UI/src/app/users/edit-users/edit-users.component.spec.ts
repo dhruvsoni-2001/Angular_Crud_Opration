@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TasksComponent } from './tasks.component';
+import { EditUsersComponent } from './edit-users.component';
 
-describe('TasksComponent', () => {
-  let component: TasksComponent;
-  let fixture: ComponentFixture<TasksComponent>;
+describe('EditUsersComponent', () => {
+  let component: EditUsersComponent;
+  let fixture: ComponentFixture<EditUsersComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TasksComponent]
+      declarations: [EditUsersComponent]
     });
-    fixture = TestBed.createComponent(TasksComponent);
+    fixture = TestBed.createComponent(EditUsersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

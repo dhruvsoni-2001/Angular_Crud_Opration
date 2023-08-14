@@ -1,0 +1,22 @@
+.custom-dropdown {
+    position: relative;
+  }
+  
+  .custom-dropdown p-dropdown {
+    height: auto;
+    padding-right: 55px; /* Add space for the arrow icon */
+  }
+  
+  .custom-dropdown .pi-chevron-down {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+  }
+  .container{
+    width: 50%;
+  }

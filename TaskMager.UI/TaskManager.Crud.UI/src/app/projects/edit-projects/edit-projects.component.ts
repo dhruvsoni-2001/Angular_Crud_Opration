@@ -61,30 +61,6 @@ export class EditProjectsComponent implements OnInit {
     });
   }
 
-  // ngOnInit() {
-  //   return this.route.paramMap.subscribe({
-  //     next: (params) => {
-  //       const id = params.get('id');
-  //       console.log(params);
-  
-  //       if (id) {
-  //         this.projectService.getProjectById(+id).subscribe({
-  //           next: (response) => {
-  //             this.project = response;
-  //             console.log(response);
-  //             if (this.project.id <= 0) {
-  //               console.log('project id not found');
-  //             }
-  
-  //             // Convert string dates to Date objects (if they are strings)
-  //             this.project.startDate = new Date(this.project.startDate);
-  //             this.project.endDate = new Date(this.project.endDate);
-  //           },
-  //         });
-  //       }
-  //     },
-  //   });
-  // }
 
   onUpdate() {
     this.projectService

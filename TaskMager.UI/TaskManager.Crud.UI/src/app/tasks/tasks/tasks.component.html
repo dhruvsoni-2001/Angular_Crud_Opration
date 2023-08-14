@@ -1,1 +1,69 @@
-<p>tasks works!</p>
+<!-- {{projects | json}} -->
+<p-toast></p-toast>
+<div class="mt-5"></div>
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="onAddProject()"></button>
+      <!-- <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteUser()"
+        [disabled]="!selectedUser"></button> -->
+    </ng-template>
+  </p-toolbar>
+
+  <p-table #dt [value]="tasks" [rows]="5" [paginator]="true"
+    [globalFilterFields]="['Name', 'Description', 'StartDate', 'EndEnd']" [rowHover]="true" dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"  [rowsPerPageOptions]="[5,10, 20, 30]">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage Projects</h5>
+        <!-- <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+        </span> -->
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 2rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="name">Title <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+        <th pSortableColumn="status">Status<p-sortIcon field="status"></p-sortIcon></th>
+        <th pSortableColumn="taskId">DueDate <p-sortIcon field="dueDate"></p-sortIcon></th>
+        <th pSortableColumn="project">Projects<p-sortIcon field="status"></p-sortIcon></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-task>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="task"></p-tableCheckbox>
+        </td>
+        <td>{{task.title}}</td>
+        <td>{{task.description}}</td>
+        <td><div class="container">
+          <label class="switch" for="checkbox{{ task.id }}">
+            <input type="checkbox" id="checkbox{{ task.id }}" [(ngModel)]="task.status" (change)="onUpdateTaskStatus(task)" />
+            <div class="slider round"></div>
+          </label>
+        </div></td>
+        <td>{{task.dueDate | date: 'dd/MM/yyyy'}}</td>
+        <td>{{task.project.name}}</td>
+
+        <td >
+          <a [routerLink]="['/tasks/edit/', task.id]"><button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2"
+            ></button></a> &nbsp;
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+            (click)="onDeleteProject(task.id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In Total there are {{tasks ? tasks.length : 0}} Tasks.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+<div class="mb-3"></div>

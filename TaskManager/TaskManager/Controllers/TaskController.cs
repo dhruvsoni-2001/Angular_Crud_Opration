@@ -71,12 +71,26 @@ namespace TaskManager.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var projectDomain = await taskRepository.GetByIdAsync(id);
-            if (projectDomain == null)
+            var tasksDomain = await taskRepository.GetByIdAsync(id);
+            if (tasksDomain == null)
             {
                 return NotFound();
             }
-            return Ok(mapper.Map<TasksResponseDto>(projectDomain));
+            return Ok(mapper.Map<TasksResponseDto>(tasksDomain));
+        }
+
+        [HttpPut("{id}/status")]
+        public async Task<IActionResult> UpdateStatus([FromRoute] int id, [FromBody] StatusRequestDto statusRequestDto)
+        {
+            var tasksDomain = mapper.Map<Tasks>(statusRequestDto);
+
+            tasksDomain = await taskRepository.UpdateStatusAsysnc(tasksDomain, id);
+            var tasksDto = mapper.Map<StatusResponseDto>(tasksDomain);
+            if (tasksDomain == null)
+            {
+                return NotFound();
+            }
+            return Ok(tasksDto);
         }
     }
 }
