@@ -7,7 +7,7 @@ namespace TaskManager.Repository
         Task<User?> CreateAsync(User userDomainModel);
         Task<List<User>> GetAllAsync();
         Task<User?> GetByIdAsync(int id);
-        Task<User?> UpdateAsysnc(User userDomainModel, int id);
+        Task<User?> UpdateAsysnc(int id, User userDomainModel);
         Task<User?> DeleleAsync(int id);
     }
 }

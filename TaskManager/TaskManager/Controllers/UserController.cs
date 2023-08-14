@@ -42,12 +42,12 @@ namespace TaskManager.Controllers
             return Ok(userDto);
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UserUpdateRequestDto userUpdateRequestDto)
         {
             var userDomainModel = mapper.Map<User>(userUpdateRequestDto);
 
-            userDomainModel = await userRepository.UpdateAsysnc(userDomainModel, id);
+            userDomainModel = await userRepository.UpdateAsysnc(id, userDomainModel);
             var userDto = mapper.Map<UserAddUpdateResponseDto>(userDomainModel);
             if (userDomainModel == null)
             {

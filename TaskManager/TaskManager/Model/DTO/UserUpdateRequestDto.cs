@@ -15,7 +15,6 @@ namespace TaskManager.Model.DTO
         [Required]
         public string Role { get; set; }
 
-        [Required]
         public int TasksId { get; set; }
     }
 }

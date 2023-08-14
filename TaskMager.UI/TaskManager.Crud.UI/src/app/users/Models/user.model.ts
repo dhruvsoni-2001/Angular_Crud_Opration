@@ -3,7 +3,7 @@ export interface User {
   name: string;
   email: string;
   role: string;
-  taskId: number;
+  tasksId: number;
   //projectName: string; // Add a new property to hold project name
   tasks: {
     id: number;

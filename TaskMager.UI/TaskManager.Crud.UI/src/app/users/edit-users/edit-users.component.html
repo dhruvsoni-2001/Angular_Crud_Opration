@@ -1,1 +1,47 @@
-<p>edit-users works!</p>
+<div class="outer my-3">
+    <div class="container">
+      <div class="card">
+        <form #userForm="ngForm" (ngSubmit)="onUpdate()">
+            <div class="form-group mb-3">
+                <label>Name</label>
+                <input type="text" class="form-control" name="name" [(ngModel)]="user.name" required
+                    #name="ngModel" minlength="1" maxlength="50" />
+            </div>
+            <div>
+                <span class="help-block" *ngIf="name?.invalid && name?.touched">Name field is invalid!</span>
+            </div>
+          <div class="form-group mb-3">
+            <label>Email</label>
+            <input type="text" class="form-control" name="email" [(ngModel)]="user.email" required
+                    #email="ngModel" minlength="1" maxlength="50" />
+            <div>
+                <span class="help-block" *ngIf="email?.invalid && email?.touched">Name field is invalid!</span>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label>Role</label>
+            <input type="text" class="form-control" name="role" [(ngModel)]="user.role" #role="ngModel" required />
+            <div>
+                <span class="help-block" *ngIf="role?.invalid && role?.touched">Role field is invalid!</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Project</label>
+            <select class="form-control" name="taskId" [(ngModel)]="user.tasksId" required #taskId="ngModel">
+                <option *ngFor="let tasks of tasks" [value]="tasks.id">
+                    {{ tasks.title }}
+                </option>
+            </select>
+        </div>
+          <div class="d-flex justify-content-between">
+            <button type="button" pButton pRipple class="btn btn-warning" (click)="onBack()">
+              <i class="pi pi-arrow-left"></i> Back
+            </button>
+            <button type="submit" pButton pRipple class="btn btn-success" [disabled]="!userForm.valid">
+              <i class="pi pi-check"></i> Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

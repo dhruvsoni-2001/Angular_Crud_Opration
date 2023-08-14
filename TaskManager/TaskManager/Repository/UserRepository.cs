@@ -27,7 +27,7 @@ namespace TaskManager.Repository
             return userDomain;
         }
 
-        public async Task<User?> UpdateAsysnc(User userDomainModel, int id)
+        public async Task<User?> UpdateAsysnc(int id, User userDomainModel)
         {
             var existingUser = await dbContext.users.FirstOrDefaultAsync(x => x.Id == id);
             if (existingUser == null)
